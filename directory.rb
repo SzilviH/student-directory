@@ -14,7 +14,7 @@ def input_students
       puts "Now we have #{students.count} student"
     else
       puts "Now we have #{students.count} students"
-    end 
+    end
     # get another name from the user
     name = gets.chomp
   end
@@ -28,9 +28,11 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, index|
+  #if students.count >= 1
+    students.each_with_index do |student, index|
       puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
+    end
+  #end
 end
 
 def print_footer(names)
