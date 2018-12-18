@@ -28,11 +28,11 @@ def print_header
 end
 
 def print(students)
-  #if students.count >= 1
+  if students.count >= 1
     students.each_with_index do |student, index|
       puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
-  #end
+  end
 end
 
 def print_footer(names)
