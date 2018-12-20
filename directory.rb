@@ -8,8 +8,15 @@ def input_students
   name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
-    # add the student hash to the array
-    students << {name: name, cohort: :november}
+    # get cohort
+    puts "What cohort are they in? Please provide month."
+    cohort = gets.chomp
+    # if input is empty, default value will be November
+    if cohort == ""
+      cohort = "november"
+    end
+    # add the student and their cohort hash to the array
+    students << {name: name, cohort: cohort.to_sym} # cohort string is converted to symbol
     if students.count == 1
       puts "Now we have #{students.count} student"
     else
