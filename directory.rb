@@ -40,6 +40,18 @@ def print(students)
   end
 end
 
+def print_by_cohort(students)
+  cohorts = students.map {|student| student[:cohort]}.uniq
+  cohorts.each do |cohort|
+    puts "#{cohort} cohort: "
+    students.each do |student|
+      if student[:cohort] == cohort
+        puts student[:name]
+      end
+    end
+  end
+end
+
 def print_footer(names)
   if names.count > 1
     puts "Overall, we have #{names.count} great students"
@@ -51,5 +63,6 @@ end
 students = input_students
 # Nothing happens until we call the methods
 print_header
-print(students)
+#print(students)
+print_by_cohort(students)
 print_footer(students)
