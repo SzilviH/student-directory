@@ -18,14 +18,19 @@ end
 def process(selection)
   case selection
   when "1"
+    puts "Taking student details..."
     input_students
   when "2"
+    puts "Showing student list..."
     show_students
   when "3"
+    puts "Student details saved."
     save_students
   when "4"
+    puts "Loading student records..."
     load_students
   when "9"
+    puts "Good bye!"
     exit # this will cause the program to terminate
   else
     puts "I don't know what you mean, try again"
@@ -62,6 +67,8 @@ def input_students
   end
   # return the array of students
   @students
+  puts "Students details received"
+  puts "-------------------------"
 end
 
 def show_students
