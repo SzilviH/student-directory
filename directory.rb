@@ -1,5 +1,37 @@
 @students = [] # an empty array accessible to all methods
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
+  puts "9. Exit"
+end
+
+def interactive_menu
+  loop do
+    print_menu
+    process(STDIN.gets.chomp)
+  end
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    show_students
+  when "3"
+    save_students
+  when "4"
+    load_students
+  when "9"
+    exit # this will cause the program to terminate
+  else
+    puts "I don't know what you mean, try again"
+  end
+end
+
 def add_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
@@ -32,41 +64,28 @@ def input_students
   @students
 end
 
-def interactive_menu
-  loop do
-    print_menu
-    process(STDIN.gets.chomp)
-  end
-end
-
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "9. Exit"
-end
-
 def show_students
   print_header
   print_students_list
   print_footer
 end
 
-def process(selection)
-  case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # this will cause the program to terminate
+def print_header
+  puts "The students of Villains Academy"
+  puts "-------------"
+end
+
+def print_students_list
+  @students.each_with_index do |student, index|
+      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  end
+end
+
+def print_footer
+  if @students.count > 1
+    puts "Overall, we have #{@students.count} great students"
   else
-    puts "I don't know what you mean, try again"
+    puts "Overall, we have #{@students.count} great student"
   end
 end
 
@@ -103,16 +122,8 @@ def try_load_students
   end
 end
 
-def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
-end
-
-def print_students_list
-  @students.each_with_index do |student, index|
-      puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
+try_load_students
+interactive_menu
 
 =begin
 def print_by_cohort(students)
@@ -127,14 +138,3 @@ def print_by_cohort(students)
   end
 end
 =end
-
-def print_footer
-  if @students.count > 1
-    puts "Overall, we have #{@students.count} great students"
-  else
-    puts "Overall, we have #{@students.count} great student"
-  end
-end
-
-try_load_students
-interactive_menu
