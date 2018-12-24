@@ -1,3 +1,4 @@
+require 'csv'
 @students = [] # an empty array accessible to all methods
 
 def print_menu
@@ -102,13 +103,14 @@ def save_students
   if filename.nil?
     filename = "students.csv"
   end
-  file = File.open(filename, "w") do |file|
+  file = File.open(filename + ".csv", "w") do |file|
   # iterate over the array of students
-    @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
-    end
+    CSV.open(filename, "w") do |csv_object|
+      @students.each do |student|
+        student_data = [student[:name], student[:cohort]]
+        csv_object << student_data
+      end
+    end 
   end
 end
 
@@ -118,12 +120,10 @@ def load_students
   if filename.empty?
     filename = "students.csv"
   end
-  file = File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      add_students(name, cohort)
-    end
-  end 
+  file = CSV.foreach(filename, "r") do |row|
+    name, cohort = row[0], row[1]
+    add_students
+  end
 end
 
 def try_load_students
@@ -140,17 +140,3 @@ end
 
 try_load_students
 interactive_menu
-
-=begin
-def print_by_cohort(students)
-  cohorts = @students.map {|student| student[:cohort]}.uniq
-  cohorts.each do |cohort|
-    puts "#{cohort} cohort: "
-    @students.each do |student|
-      if student[:cohort] == cohort
-        puts student[:name]
-      end
-    end
-  end
-end
-=end
