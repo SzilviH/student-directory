@@ -1,5 +1,9 @@
 @students = [] # an empty array accessible to all methods
 
+def add_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -15,7 +19,7 @@ def input_students
       cohort = "november"
     end
     # add the student and their cohort hash to the array
-    @students << {name: name, cohort: cohort.to_sym} # cohort string is converted to symbol
+    add_students(name, cohort)
     if @students.count == 1
       puts "Now we have #{@students.count} student"
     else
@@ -82,7 +86,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name, cohort)
   end
   file.close
 end
